@@ -98,6 +98,11 @@ $checker->addTask([$tasks, 'tabIndentationChecker'], '*.css,*.less,*.js,*.json,*
 $checker->addTask([$tasks, 'tabIndentationPhpChecker'], '*.php,*.phpt');
 $checker->addTask([$tasks, 'unexpectedTabsChecker'], '*.yml');
 
+$tasksMzk = 'Nette\CodeChecker\TasksMzk';
+$checker->addTask([$tasksMzk, 'booleanValuesChecker'], '*.neon');
+$checker->addTask([$tasksMzk, 'html5Checker'], '*.latte');
+$checker->addTask([$tasksMzk, 'entityChecker'], '*.php');
+
 $ok = $checker->run($options['-d']);
 
 exit($ok ? 0 : 1);
