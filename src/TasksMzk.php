@@ -12,17 +12,20 @@ class TasksMzk
 {
 	public static function booleanValuesChecker(string &$contents, Result $result): void
 	{
-			$lines = explode("\n", $contents);
-			foreach ($lines as &$line) {
-				if (preg_match('~^(.*):( )?(yes|on|no|off)$~i', $line)) {
-					$message = sprintf('Boolean values should be true/false: %s', $line);
-					$result->error($message);
-					$line = preg_replace('~:( )?(yes|on)$~i', ': true', $line);
-					$line = preg_replace('~:( )?(no|off)$~i', ': false', $line);
-				}
+		$lines = explode("\n", $contents);
+		foreach ($lines as &$line) {
+			if (preg_match('~^(.*):( )?(yes|on|no|off)$~i', $line)) {
+				$message = sprintf('Boolean values should be true/false: %s', $line);
+				$result->error($message);
+				$line = preg_replace('~:( )?(yes|on)$~i', ': true', $line);
+				$line = preg_replace('~:( )?(no|off)$~i', ': false', $line);
 			}
+		}
 
-			$result->fix(implode("\n", $lines));
+		$implode = implode("\n", $lines);
+		if ($contents !== $implode) {
+			$result->fix($implode);
+		}
 	}
 
 	public static function html5Checker(string $contents, Result $result): void {
